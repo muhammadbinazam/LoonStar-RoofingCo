@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoolBreeze AC & Heating | Houston's #1 HVAC Company</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ice: #00C6FF;
+    --deep: #0a0f1e;
+    --navy: #0d1b3e;
+    --steel: #1a2d5a;
+    --frost: #e8f4ff;
+    --white: #ffffff;
+    --orange: #ff6b2b;
+    --gray: #8a9bb5;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--deep); color: var(--white); overflow-x: hidden; }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(10,15,30,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,198,255,0.15);
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--ice); letter-spacing: 2px; }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--gray); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--ice); }
+  .nav-cta {
+    background: var(--orange); color: var(--white);
+    padding: 10px 22px; border-radius: 6px;
+    text-decoration: none; font-weight: 600; font-size: 14px;
+    transition: transform .2s, box-shadow .2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,43,0.4); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all .3s; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 40px 80px;
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a1628 100%);
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,198,255,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 80%, rgba(255,107,43,0.05) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: linear-gradient(rgba(0,198,255,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,198,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,198,255,0.1); border: 1px solid rgba(0,198,255,0.3);
+    color: var(--ice); padding: 6px 16px; border-radius: 100px;
+    font-size: 13px; font-weight: 600; letter-spacing: .5px; margin-bottom: 28px;
+    animation: fadeUp .6s ease both;
+  }
+  .hero-badge::before { content: ''; width: 8px; height: 8px; background: var(--ice); border-radius: 50%; animation: pulse 1.5s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 8vw, 96px);
+    line-height: .95; letter-spacing: 2px;
+    animation: fadeUp .6s .1s ease both;
+  }
+  .hero h1 .ice { color: var(--ice); }
+  .hero h1 .orange { color: var(--orange); }
+  .hero-sub {
+    margin-top: 24px; font-size: 18px; color: var(--gray); line-height: 1.6;
+    max-width: 520px; animation: fadeUp .6s .2s ease both;
+  }
+  .hero-ctas {
+    display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px;
+    animation: fadeUp .6s .3s ease both;
+  }
+  .btn-primary {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--ice); color: var(--deep);
+    padding: 16px 32px; border-radius: 8px;
+    font-size: 17px; font-weight: 700; text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,198,255,0.35); }
+  .btn-secondary {
+    display: flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--white);
+    border: 2px solid rgba(255,255,255,0.2);
+    padding: 16px 32px; border-radius: 8px;
+    font-size: 17px; font-weight: 600; text-decoration: none;
+    transition: all .2s;
+  }
+  .btn-secondary:hover { border-color: var(--ice); color: var(--ice); }
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 60px;
+    animation: fadeUp .6s .4s ease both;
+  }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--ice); }
+  .stat-label { font-size: 13px; color: var(--gray); font-weight: 500; }
+  .hero-image {
+    position: absolute; right: -60px; bottom: 0; z-index: 1;
+    width: 55%; max-width: 720px; opacity: .07;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 320px; line-height: 1; color: var(--ice);
+    pointer-events: none; user-select: none;
+    animation: fadeIn 1s .5s ease both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:.07} }
+
+  /* EMERGENCY BAR */
+  .emergency-bar {
+    background: linear-gradient(90deg, #ff3b1e, var(--orange));
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    flex-wrap: wrap;
+  }
+  .emergency-bar p { font-weight: 600; font-size: 15px; }
+  .emergency-bar a {
+    background: var(--white); color: var(--orange);
+    padding: 8px 20px; border-radius: 6px;
+    font-weight: 700; text-decoration: none; font-size: 14px;
+    transition: transform .2s;
+  }
+  .emergency-bar a:hover { transform: scale(1.04); }
+
+  /* SERVICES */
+  section { padding: 100px 40px; }
+  .section-label { color: var(--ice); font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 60px); letter-spacing: 1px; line-height: 1; margin-bottom: 20px; }
+  .section-sub { color: var(--gray); font-size: 17px; line-height: 1.6; max-width: 500px; }
+  .services { background: var(--navy); }
+  .services-inner { max-width: 1200px; margin: 0 auto; }
+  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; flex-wrap: wrap; gap: 24px; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .service-card {
+    background: var(--steel); border-radius: 16px;
+    padding: 36px 32px; border: 1px solid rgba(0,198,255,0.1);
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: 16px;
+    background: linear-gradient(135deg, rgba(0,198,255,0.05), transparent);
+    opacity: 0; transition: opacity .3s;
+  }
+  .service-card:hover { transform: translateY(-6px); border-color: rgba(0,198,255,0.4); box-shadow: 0 20px 60px rgba(0,198,255,0.1); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 56px; height: 56px; border-radius: 12px;
+    background: rgba(0,198,255,0.1); display: flex; align-items: center; justify-content: center;
+    font-size: 26px; margin-bottom: 20px;
+  }
+  .service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .service-card p { color: var(--gray); font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+  .service-card .price { color: var(--ice); font-weight: 600; font-size: 15px; }
+
+  /* WHY US */
+  .why { background: var(--deep); }
+  .why-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .why-visual {
+    background: var(--steel); border-radius: 24px; padding: 48px;
+    border: 1px solid rgba(0,198,255,0.15); position: relative;
+  }
+  .why-visual::after {
+    content: ''; position: absolute; inset: -1px; border-radius: 24px;
+    background: linear-gradient(135deg, rgba(0,198,255,0.2), transparent, rgba(255,107,43,0.1));
+    z-index: -1;
+  }
+  .why-big-num { font-family: 'Bebas Neue', sans-serif; font-size: 120px; color: var(--ice); line-height: 1; opacity: .15; }
+  .why-feature { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+  .why-check { width: 24px; height: 24px; min-width: 24px; border-radius: 50%; background: rgba(0,198,255,0.15); display: flex; align-items: center; justify-content: center; color: var(--ice); font-size: 12px; margin-top: 2px; }
+  .why-feature h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .why-feature p { color: var(--gray); font-size: 14px; line-height: 1.5; }
+  .certifications { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .cert-badge {
+    background: rgba(0,198,255,0.08); border: 1px solid rgba(0,198,255,0.2);
+    color: var(--ice); padding: 6px 14px; border-radius: 6px;
+    font-size: 12px; font-weight: 600; letter-spacing: .5px;
+  }
+
+  /* REVIEWS */
+  .reviews { background: var(--navy); }
+  .reviews-inner { max-width: 1200px; margin: 0 auto; }
+  .reviews-header { text-align: center; margin-bottom: 60px; }
+  .reviews-header .section-sub { margin: 0 auto; }
+  .stars-summary { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 20px 0; }
+  .big-rating { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: var(--ice); line-height: 1; }
+  .stars { color: #fbbf24; font-size: 24px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .review-card {
+    background: var(--steel); border-radius: 16px; padding: 32px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: transform .3s;
+  }
+  .review-card:hover { transform: translateY(-4px); }
+  .review-stars { color: #fbbf24; font-size: 18px; margin-bottom: 16px; }
+  .review-text { color: var(--gray); font-size: 15px; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .reviewer-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--ice), var(--steel));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px; color: var(--deep);
+  }
+  .reviewer-name { font-weight: 600; font-size: 15px; }
+  .reviewer-info { font-size: 13px; color: var(--gray); }
+
+  /* BOOKING / CONTACT */
+  .contact { background: var(--deep); }
+  .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-info h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 64px); line-height: 1; margin-bottom: 20px; }
+  .contact-info p { color: var(--gray); font-size: 17px; line-height: 1.6; margin-bottom: 40px; }
+  .contact-methods { display: flex; flex-direction: column; gap: 16px; }
+  .contact-method {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--steel); border-radius: 12px; padding: 18px 20px;
+    text-decoration: none; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: border-color .2s, transform .2s;
+  }
+  .contact-method:hover { border-color: var(--ice); transform: translateX(6px); }
+  .method-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(0,198,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .method-label { font-size: 12px; color: var(--gray); }
+  .method-value { font-size: 16px; font-weight: 600; }
+  .form-card {
+    background: var(--steel); border-radius: 20px; padding: 40px;
+    border: 1px solid rgba(0,198,255,0.15);
+  }
+  .form-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--gray); margin-bottom: 8px; letter-spacing: .3px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    padding: 14px 16px; color: var(--white); font-family: 'Outfit', sans-serif;
+    font-size: 15px; transition: border-color .2s, box-shadow .2s;
+    outline: none;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--ice); box-shadow: 0 0 0 3px rgba(0,198,255,0.1);
+  }
+  .form-group select { appearance: none; cursor: pointer; }
+  .form-group select option { background: var(--navy); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .submit-btn {
+    width: 100%; background: var(--ice); color: var(--deep);
+    border: none; border-radius: 10px; padding: 16px;
+    font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700;
+    cursor: pointer; transition: transform .2s, box-shadow .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,198,255,0.35); }
+  .form-success {
+    display: none; background: rgba(0,198,255,0.1); border: 1px solid rgba(0,198,255,0.3);
+    border-radius: 10px; padding: 20px; text-align: center; color: var(--ice);
+    font-size: 15px; font-weight: 600; margin-top: 16px;
+  }
+
+  /* BOOKING SECTION */
+  .booking { background: var(--navy); }
+  .booking-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .booking-inner .section-sub { margin: 0 auto 40px; }
+  .calendly-placeholder {
+    background: var(--steel); border-radius: 20px; padding: 60px 40px;
+    border: 1px solid rgba(0,198,255,0.15);
+    text-align: center;
+  }
+  .calendly-placeholder .cal-icon { font-size: 48px; margin-bottom: 16px; }
+  .calendly-placeholder h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+  .calendly-placeholder p { color: var(--gray); margin-bottom: 28px; font-size: 15px; }
+  .cal-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ice); color: var(--deep);
+    padding: 16px 36px; border-radius: 10px;
+    font-size: 16px; font-weight: 700; text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .cal-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,198,255,0.3); }
+  .booking-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 32px; }
+  .booking-option {
+    background: rgba(0,198,255,0.05); border: 1px solid rgba(0,198,255,0.15);
+    border-radius: 12px; padding: 20px 16px; cursor: pointer;
+    transition: all .2s; text-align: center;
+  }
+  .booking-option:hover, .booking-option.selected { background: rgba(0,198,255,0.15); border-color: var(--ice); }
+  .booking-option .b-icon { font-size: 28px; margin-bottom: 8px; }
+  .booking-option h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .booking-option p { font-size: 12px; color: var(--gray); }
+
+  /* MAP / AREA */
+  .area { background: var(--deep); }
+  .area-inner { max-width: 1200px; margin: 0 auto; }
+  .area-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .area-zones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+  .zone-pill {
+    background: var(--steel); border: 1px solid rgba(0,198,255,0.1);
+    border-radius: 8px; padding: 12px 16px;
+    font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 8px;
+  }
+  .zone-pill::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ice); flex-shrink: 0; }
+  .map-placeholder {
+    background: var(--steel); border-radius: 20px; overflow: hidden;
+    border: 1px solid rgba(0,198,255,0.15); height: 380px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .map-placeholder iframe { width: 100%; height: 100%; border: none; filter: grayscale(80%) invert(90%) hue-rotate(180deg); }
+
+  /* FOOTER */
+  footer {
+    background: #050810; padding: 60px 40px 30px;
+    border-top: 1px solid rgba(0,198,255,0.1);
+  }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--ice); letter-spacing: 2px; margin-bottom: 14px; }
+  .footer-desc { color: var(--gray); font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+  .footer-social { display: flex; gap: 10px; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--steel); display: flex; align-items: center; justify-content: center;
+    color: var(--gray); font-size: 16px; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.06); transition: all .2s;
+  }
+  .social-btn:hover { color: var(--ice); border-color: var(--ice); }
+  .footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--white); }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { color: var(--gray); text-decoration: none; font-size: 14px; transition: color .2s; }
+  .footer-col ul a:hover { color: var(--ice); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-bottom p { color: var(--gray); font-size: 13px; }
+  .license-badge { background: rgba(0,198,255,0.1); border: 1px solid rgba(0,198,255,0.2); color: var(--ice); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+
+  /* STICKY CALL BAR (mobile) */
+  .sticky-call {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
+    display: none;
+    background: linear-gradient(90deg, var(--orange), #ff3b1e);
+    padding: 16px 24px;
+    text-align: center;
+  }
+  .sticky-call a {
+    color: var(--white); font-size: 18px; font-weight: 700;
+    text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: var(--deep); padding: 100px 40px 40px;
+      flex-direction: column; gap: 24px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--white); text-decoration: none; font-size: 28px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 20px; }
+    .mobile-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--white); font-size: 28px; cursor: pointer; }
+    section { padding: 70px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .hero-stats { gap: 28px; }
+    .why-inner, .contact-inner, .area-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .form-row { grid-template-columns: 1fr; }
+    .sticky-call { display: block; }
+    body { padding-bottom: 60px; }
+    .hero-image { display: none; }
+    .emergency-bar { padding: 14px 20px; }
+  }
+  @media (max-width: 500px) {
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .footer-top { grid-template-columns: 1fr; }
+    .area-zones { grid-template-columns: 1fr; }
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--ice); color: var(--deep);
+    padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: 15px;
+    z-index: 9999; transition: transform .4s ease;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✅ Message sent! We'll call you shortly.</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#why" onclick="closeMobile()">Why Us</a>
+  <a href="#reviews" onclick="closeMobile()">Reviews</a>
+  <a href="#booking" onclick="closeMobile()">Book Now</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="tel:+17135550192" style="color: var(--ice)">📞 (713) 555-0192</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Cool<span>Breeze</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#booking">Book Now</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:+17135550192" class="nav-cta">📞 (713) 555-0192</a>
+  <button class="hamburger" onclick="openMobile()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⚡ Available 24/7 for Emergencies</div>
+    <h1>HOUSTON'S<br><span class="ice">COOLEST</span><br><span class="orange">HVAC</span> PROS</h1>
+    <p class="hero-sub">Fast, reliable AC repair, installation & heating services across Greater Houston. Licensed, insured, and trusted by 2,400+ homeowners.</p>
+    <div class="hero-ctas">
+      <a href="tel:+17135550192" class="btn-primary">📞 Call Now — It's Free</a>
+      <a href="#booking" class="btn-secondary">📅 Book Online →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">2,400+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div>
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years in Houston</div>
+      </div>
+      <div>
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Google Rating</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-image" aria-hidden="true">❄</div>
+</section>
+
+<!-- EMERGENCY BAR -->
+<div class="emergency-bar">
+  <p>🔥 Houston Summer Emergency? AC Down? We respond in under 2 hours.</p>
+  <a href="tel:+17135550192">Call Now: (713) 555-0192</a>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <div>
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">OUR SERVICES</h2>
+        <p class="section-sub">From emergency repairs to full system replacements — we do it all, fast and right the first time.</p>
+      </div>
+      <a href="tel:+17135550192" class="btn-primary" style="white-space:nowrap">Get a Free Quote</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">❄️</div>
+        <h3>AC Repair</h3>
+        <p>AC not cooling? Strange noises? We diagnose and fix all major brands same day. No cooling, no charge guarantee.</p>
+        <div class="price">Starting at $79 diagnostic</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏠</div>
+        <h3>AC Installation</h3>
+        <p>New system installs for homes and businesses. We carry top brands — Lennox, Carrier, Trane. Free in-home estimates.</p>
+        <div class="price">Free estimate</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔥</div>
+        <h3>Heating & Furnace</h3>
+        <p>Furnace repair, heat pump service, and heating system installs. Ready before Texas cold snaps hit.</p>
+        <div class="price">Starting at $89 diagnostic</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>Maintenance Plans</h3>
+        <p>Seasonal tune-ups that prevent breakdowns. Priority service, discounts on repairs, and extended equipment life.</p>
+        <div class="price">From $129/year</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💨</div>
+        <h3>Air Quality & Duct Cleaning</h3>
+        <p>Clean ducts mean cleaner air. We remove allergens, dust, and mold from your ductwork — big difference for families.</p>
+        <div class="price">From $299 full home</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Emergency Service</h3>
+        <p>24/7 emergency dispatch. We answer every call — nights, weekends, holidays. Houston heat waits for no one.</p>
+        <div class="price">Available 24 hours</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div class="why-visual">
+      <div class="why-big-num">15</div>
+      <div style="margin-top:-20px; margin-bottom:32px">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--ice)">YEARS KEEPING HOUSTON COOL</div>
+        <div style="color:var(--gray); font-size:14px; margin-top:4px">Locally owned and operated since 2009</div>
+      </div>
+      <div class="why-feature">
+        <div class="why-check">✓</div>
+        <div>
+          <h4>Same-Day Service Available</h4>
+          <p>We dispatch within 2 hours for emergency calls. Most repairs completed same visit.</p>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-check">✓</div>
+        <div>
+          <h4>Upfront, Flat-Rate Pricing</h4>
+          <p>You know the full cost before we start. No surprise charges, ever. We put it in writing.</p>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-check">✓</div>
+        <div>
+          <h4>100% Satisfaction Guarantee</h4>
+          <p>If you're not happy, we come back and fix it. Simple as that — no questions asked.</p>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-check">✓</div>
+        <div>
+          <h4>Licensed, Bonded & Insured</h4>
+          <p>Every technician is background-checked, NATE-certified, and fully insured for your protection.</p>
+        </div>
+      </div>
+      <div class="certifications">
+        <div class="cert-badge">NATE Certified</div>
+        <div class="cert-badge">EPA 608</div>
+        <div class="cert-badge">ACCA Member</div>
+        <div class="cert-badge">BBB A+</div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">WE'RE NOT<br>JUST ANOTHER<br><span style="color:var(--ice)">HVAC COMPANY</span></h2>
+      <p style="color:var(--gray); font-size:17px; line-height:1.6; margin-bottom:32px">We've been your neighbor in Houston for 15 years. We show up on time, tell you exactly what's wrong, fix it right, and charge a fair price. That's how we've built 2,400+ five-star relationships.</p>
+      <a href="#contact" class="btn-primary" style="display:inline-flex">Get a Free Estimate →</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <div class="section-label">Customer Reviews</div>
+      <h2 class="section-title">WHAT HOUSTON<br>IS SAYING</h2>
+      <div class="stars-summary">
+        <div class="big-rating">4.9</div>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div style="color:var(--gray); font-size:14px; margin-top:4px">Based on 847 Google reviews</div>
+        </div>
+      </div>
+      <p class="section-sub">Don't take our word for it — here's what real Houston homeowners say about CoolBreeze.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Our AC went out on the hottest day of the year — 104°F outside. CoolBreeze had a tech at my house within 90 minutes and fixed it in under an hour. Absolutely saved our family. Will never use anyone else."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">MR</div>
+          <div>
+            <div class="reviewer-name">Marcus R.</div>
+            <div class="reviewer-info">Katy, TX · Verified Google Review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I got 4 quotes for a new AC system. CoolBreeze was not the cheapest but their tech actually explained every option and helped me pick the right size unit. Two years later, couldn't be happier. Honest people."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">TL</div>
+          <div>
+            <div class="reviewer-name">Tanya L.</div>
+            <div class="reviewer-info">Sugar Land, TX · Verified Google Review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I've been on their maintenance plan for 3 years. They catch small issues before they become big expensive ones. Last week they found a refrigerant leak during a tune-up — saved me a $2,000 repair this summer for sure."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">DM</div>
+          <div>
+            <div class="reviewer-name">David M.</div>
+            <div class="reviewer-info">The Woodlands, TX · Verified Google Review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <div class="section-label">Schedule Service</div>
+    <h2 class="section-title">BOOK YOUR<br><span style="color:var(--ice)">APPOINTMENT</span></h2>
+    <p class="section-sub">Choose a service type below, then pick your preferred time. Confirmation sent instantly to your phone.</p>
+
+    <div class="booking-options">
+      <div class="booking-option selected" onclick="selectOption(this)">
+        <div class="b-icon">🔧</div>
+        <h4>AC Repair</h4>
+        <p>Same day available</p>
+      </div>
+      <div class="booking-option" onclick="selectOption(this)">
+        <div class="b-icon">🏠</div>
+        <h4>New Installation</h4>
+        <p>Free estimate</p>
+      </div>
+      <div class="booking-option" onclick="selectOption(this)">
+        <div class="b-icon">🛡️</div>
+        <h4>Maintenance</h4>
+        <p>Seasonal tune-up</p>
+      </div>
+      <div class="booking-option" onclick="selectOption(this)">
+        <div class="b-icon">💨</div>
+        <h4>Duct Cleaning</h4>
+        <p>Full home service</p>
+      </div>
+    </div>
+
+    <div class="calendly-placeholder" style="margin-top:32px">
+      <div class="cal-icon">📅</div>
+      <h3>Pick Your Appointment Time</h3>
+      <p>Select a date and time that works for you. We'll confirm within 15 minutes.</p>
+      <!-- In production: Replace with actual Calendly embed -->
+      <!-- <div class="calendly-inline-widget" data-url="https://calendly.com/youraccount" style="min-width:320px;height:630px;"></div> -->
+      <a href="tel:+17135550192" class="cal-btn">📞 Call to Schedule Now</a>
+      <p style="margin-top:16px; font-size:13px; color:var(--gray)">Or book instantly online — coming soon</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="area" id="area">
+  <div class="area-inner">
+    <div class="area-grid">
+      <div>
+        <div class="section-label">Where We Work</div>
+        <h2 class="section-title">WE SERVE<br><span style="color:var(--ice)">GREATER</span><br>HOUSTON</h2>
+        <p style="color:var(--gray); font-size:16px; line-height:1.6; margin-bottom:28px">We cover the entire Greater Houston metro — if you're within 50 miles of downtown Houston, we've got you covered. Same-day service in most areas.</p>
+        <div class="area-zones">
+          <div class="zone-pill">Houston (All)</div>
+          <div class="zone-pill">Katy</div>
+          <div class="zone-pill">Sugar Land</div>
+          <div class="zone-pill">The Woodlands</div>
+          <div class="zone-pill">Pearland</div>
+          <div class="zone-pill">Pasadena</div>
+          <div class="zone-pill">Missouri City</div>
+          <div class="zone-pill">Friendswood</div>
+          <div class="zone-pill">Spring</div>
+          <div class="zone-pill">Cypress</div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d443930.2219697744!2d-95.77515085!3d29.81688415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640b8b4488d8501%3A0xca0d02def365053b!2sHouston%2C%20TX!5e0!3m2!1sen!2sus!4v1700000000000"
+          allowfullscreen="" loading="lazy" title="CoolBreeze Service Area — Houston, TX">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-label">Get In Touch</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,5vw,64px); line-height:1; margin-bottom:20px">LET'S GET YOUR<br><span style="color:var(--ice)">AC FIXED</span><br>TODAY</h2>
+      <p style="color:var(--gray); font-size:17px; line-height:1.6; margin-bottom:40px">Don't sweat it — reach out now and we'll have a tech headed your way fast. No waiting, no runaround.</p>
+      <div class="contact-methods">
+        <a href="tel:+17135550192" class="contact-method">
+          <div class="method-icon">📞</div>
+          <div>
+            <div class="method-label">Call or Text</div>
+            <div class="method-value">(713) 555-0192</div>
+          </div>
+        </a>
+        <a href="mailto:service@coolbreezeac.com" class="contact-method">
+          <div class="method-icon">✉️</div>
+          <div>
+            <div class="method-label">Email Us</div>
+            <div class="method-value">service@coolbreezeac.com</div>
+          </div>
+        </a>
+        <div class="contact-method" style="cursor:default">
+          <div class="method-icon">🕐</div>
+          <div>
+            <div class="method-label">Business Hours</div>
+            <div class="method-value">Mon–Sat 7am–8pm · 24/7 Emergency</div>
+          </div>
+        </div>
+        <div class="contact-method" style="cursor:default">
+          <div class="method-icon">📍</div>
+          <div>
+            <div class="method-label">Serving</div>
+            <div class="method-value">Greater Houston, TX Area</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h3>Get a Free Quote</h3>
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="(713) 000-0000" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@email.com">
+        </div>
+        <div class="form-group">
+          <label>Service Needed</label>
+          <select required>
+            <option value="" disabled selected>Select a service...</option>
+            <option>AC Repair</option>
+            <option>AC Installation</option>
+            <option>Heating / Furnace</option>
+            <option>Maintenance Plan</option>
+            <option>Duct Cleaning</option>
+            <option>Emergency Service</option>
+            <option>Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Describe Your Issue (optional)</label>
+          <textarea placeholder="e.g. AC is running but not cooling, making a loud noise..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">
+          Send My Free Quote Request ➜
+        </button>
+        <div class="form-success" id="formSuccess">
+          🎉 Thanks! We'll call you within 15 minutes during business hours.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">CoolBreeze AC</div>
+        <p class="footer-desc">Houston's trusted HVAC company since 2009. Licensed, insured, and committed to keeping your family comfortable year-round.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn" aria-label="Facebook">f</a>
+          <a href="#" class="social-btn" aria-label="Google">G</a>
+          <a href="#" class="social-btn" aria-label="Yelp">Y</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">AC Repair</a></li>
+          <li><a href="#services">AC Installation</a></li>
+          <li><a href="#services">Heating</a></li>
+          <li><a href="#services">Maintenance</a></li>
+          <li><a href="#services">Duct Cleaning</a></li>
+          <li><a href="#services">Emergency</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Service Areas</h4>
+        <ul>
+          <li><a href="#area">Houston</a></li>
+          <li><a href="#area">Katy</a></li>
+          <li><a href="#area">Sugar Land</a></li>
+          <li><a href="#area">The Woodlands</a></li>
+          <li><a href="#area">Pearland</a></li>
+          <li><a href="#area">Cypress</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+17135550192">(713) 555-0192</a></li>
+          <li><a href="mailto:service@coolbreezeac.com">service@coolbreezeac.com</a></li>
+          <li><a href="#booking">Book Online</a></li>
+          <li><a href="#contact">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 CoolBreeze AC & Heating. All rights reserved. · Houston, TX</p>
+      <div style="display:flex; gap:12px; align-items:center">
+        <span class="license-badge">TACLB12345E</span>
+        <span style="color:var(--gray); font-size:13px">Privacy Policy</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY CALL BAR (mobile only) -->
+<div class="sticky-call">
+  <a href="tel:+17135550192">📞 Tap to Call — (713) 555-0192</a>
+</div>
+
+<script>
+  // Mobile menu
+  function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
+  function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // Booking option selector
+  function selectOption(el) {
+    document.querySelectorAll('.booking-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Contact form
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.submit-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    // Simulate sending (replace with EmailJS in production)
+    setTimeout(() => {
+      document.getElementById('formSuccess').style.display = 'block';
+      btn.textContent = '✅ Request Sent!';
+      showToast();
+      this.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send My Free Quote Request ➜';
+        btn.disabled = false;
+        document.getElementById('formSuccess').style.display = 'none';
+      }, 5000);
+    }, 1200);
+  });
+
+  // Toast
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+
+  // Smooth nav highlight on scroll
+  const sections = document.querySelectorAll('section[id], div[id]');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    // Navbar bg
+    const nav = document.querySelector('nav');
+    nav.style.background = scrollY > 80 ? 'rgba(10,15,30,0.98)' : 'rgba(10,15,30,0.92)';
+  });
+
+  // Animate elements on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .review-card, .why-feature, .zone-pill').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
